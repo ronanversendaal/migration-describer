@@ -1,0 +1,13 @@
+{
+    "name": "ronanversendaal/migration-describer",
+    "description": "Takes a migration and outputs the SQL to be executed",
+    "require": {
+        "laravel/laravel": "5.3"
+    },
+    "authors": [
+        {
+            "name": "Ronan Versendaal",
+            "email": "ronanversendaal@hotmail.com"
+        }
+    ]
+}
