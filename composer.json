@@ -2,7 +2,7 @@
     "name": "ronanversendaal/migration-describer",
     "version" : "1.0.0",
     "description": "Takes a migration and outputs the SQL to be executed",
-    "require": {
+    "depends": {
         "laravel/laravel": "5.3"
     },
     "authors": [
