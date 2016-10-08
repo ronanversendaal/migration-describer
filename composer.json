@@ -10,5 +10,6 @@
             "name": "Ronan Versendaal",
             "email": "ronanversendaal@hotmail.com"
         }
-    ]
+    ],
+    "minimum-stability" : "stable"
 }
