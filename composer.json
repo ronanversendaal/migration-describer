@@ -8,6 +8,9 @@
             "email": "ronanversendaal@hotmail.com"
         }
     ],
+    "require": {
+      "laravel/laravel" : "5.1.*"
+    },
     "autoload": {
       "psr-4": {"Ronanversendaal\\MigrationDescriber\\": "src/"}
     },
