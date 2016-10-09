@@ -8,5 +8,8 @@
             "email": "ronanversendaal@hotmail.com"
         }
     ],
+    "autoload": {
+      "psr-4": {"Ronanversendaal\\MigrationDescriber\\": "src/"}
+    },
     "minimum-stability" : "stable"
 }
