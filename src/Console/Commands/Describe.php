@@ -54,16 +54,34 @@ class Describe extends BaseCommand
     {
         $this->prepareDatabase();
 
-        $this->info('Migration Describer:');
+        $this->info("Migration Describer: \n");
 
-        $paths = $this->getMigrationPaths();
-        $files = $this->migrator->getMigrationFiles($paths);
-        $select = array_keys($files);
+        if($this->option('file')){
 
+            if(strpos( $this->option('file'), 'database/migrations') !== false){
+                $file = $this->option('file');
+            } else{
+                $file = $this->getMigrationPath() .'/'. $this->option('file');
+            }
 
-        $migration = $this->choice('Select migration to describe', $select, key($select));
+            if(file_exists($file)){
+                $migration = $file;
+            } else {
+                $this->warn('Migration not found.');
+                return;
+            }
 
-        $this->migrator->runMigrationList([$files[$migration]], ['pretend' => true]);
+        } else {
+            $paths = $this->getMigrationPaths();
+            $files = $this->migrator->getMigrationFiles($paths);
+            $select = array_keys($files);
+
+            $choice = $this->choice('Select migration to describe', $select, key($select));
+
+            $migration = $files[$choice];
+        }
+
+        $this->migrator->runMigrationList([$migration], ['pretend' => true]);
 
         foreach ($this->migrator->getNotes() as $note) {
             $this->output->writeln($note);
@@ -93,5 +111,6 @@ class Describe extends BaseCommand
     protected function getOptions()
     {
         $this->addOption('database', config('app.database.default'), InputOption::VALUE_OPTIONAL, 'The database connection to use.');
+        $this->addOption('file', null, InputOption::VALUE_OPTIONAL, 'The migration file to describe');
     }
 }
