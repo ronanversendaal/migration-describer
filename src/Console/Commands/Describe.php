@@ -20,7 +20,9 @@ class Describe extends BaseCommand
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Reads a migration file and outputs the SQL to the console.
+                                {--file : "The migration file to read."}
+                                {--database : "The database connection to use."';
 
 
     /**
@@ -111,6 +113,6 @@ class Describe extends BaseCommand
     protected function getOptions()
     {
         $this->addOption('database', config('app.database.default'), InputOption::VALUE_OPTIONAL, 'The database connection to use.');
-        $this->addOption('file', null, InputOption::VALUE_OPTIONAL, 'The migration file to describe');
+        $this->addOption('file', null, InputOption::VALUE_OPTIONAL, 'The migration file to read. If none given, the user will be prompted with a list of migrations.');
     }
 }
