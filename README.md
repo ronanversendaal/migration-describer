@@ -2,6 +2,8 @@
 A small Laravel 5.3 package for describing one or more migration files as SQL.
 
 
+For Laravel 5.1, check the [1.0.0 release](https://github.com/ronanversendaal/migration-describer/releases/tag/1.0.0)
+
 #Installation
 
 Use composer to install the package
