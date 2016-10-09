@@ -72,20 +72,25 @@ class Describe extends BaseCommand
         if($this->option('file')){
 
             // See if migrations folder is included.
-            $file = $this->resolvePath();
+            $file = $this->resolveFile();
+
+            $filepath = $this->getMigrationPath() . '/'. $file;
 
             if(substr($file, -1) == '*'){
                 // Wildcard. Grab everything.
-                $list = glob($file);
-            } else {
-                $list[] = $file;
-            }
+                $files = glob($filepath);
 
-            foreach($list as $file){
-                if(file_exists($file) && !is_dir($file)){
-                    // Add to migrations;
-                    $this->migrations[] = $file;
+                foreach($files as $path){
+                    $this->migrations[] = str_replace('.php', '', $this->resolvePath($path));
                 }
+
+            } else {
+
+                if(file_exists($filepath) && !is_dir($filepath)){
+                    // Add to migrations;
+                    $this->migrations[] = str_replace('.php', '', $file);
+                }
+
             }
 
             // Can't find by file option.
@@ -97,7 +102,7 @@ class Describe extends BaseCommand
 
         $this->pickMigration();
 
-        $this->migrator->runMigrationList($this->migrations, ['pretend' => true]);
+        $this->migrator->runMigrationList($this->migrations, true);
 
         foreach ($this->migrator->getNotes() as $note) {
             $this->output->writeln($note);
@@ -133,9 +138,9 @@ class Describe extends BaseCommand
 
     private function prepareMigrations()
     {
-        $this->paths = $this->getMigrationPaths();
+        $this->paths = database_path('migrations');
         $this->files = $this->migrator->getMigrationFiles($this->paths);
-        $this->select = array_keys($this->files);
+        $this->select = $this->files;
     }
 
     private function pickMigration()
@@ -148,19 +153,31 @@ class Describe extends BaseCommand
 
             $choice = $this->choice('Select migration to describe', $this->select, key($this->select));
 
-            $this->migrations[] = $this->files[$choice];
-
+            if(false !== $file = array_search($choice, $this->files)){
+                $this->migrations[] = $this->files[$file];
+            }
         }
     }
 
-    private function resolvePath()
+    private function resolveFile()
     {
         if(strpos( $this->option('file'), 'database/migrations') !== false){
             // Use full option.
-            return $this->option('file');
+            return str_replace('database/migrations/', '', $this->option('file'));
         } else{
-            // Include migration path.
-            return $this->getMigrationPath() .'/'. $this->option('file');
+            // return .
+            return $this->option('file');
+        }
+    }
+
+    private function resolvePath($path)
+    {
+        if(strpos( $path, $this->getMigrationPath()) !== false){
+            // Use full option.
+            return str_replace($this->getMigrationPath().'/', '', $path);
+        } else{
+            // return path.
+            return $path;
         }
     }
 }
