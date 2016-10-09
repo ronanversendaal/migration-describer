@@ -11,5 +11,8 @@
     "autoload": {
       "psr-4": {"Ronanversendaal\\MigrationDescriber\\": "src/"}
     },
+    "require": {
+      "laravel/framework": "5.3.*"
+    },
     "minimum-stability" : "stable"
 }

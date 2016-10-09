@@ -1,12 +1,12 @@
 # MigrationDescriber
-A small Laravel 5.1 package for describing one or more migration files as SQL.
+A small Laravel 5.3 package for describing one or more migration files as SQL.
 
 
 #Installation
 
 Use composer to install the package
 
-`composer require ronanversendaal/migration-describer:dev-release/1.0.0`
+`composer require ronanversendaal/migration-describer:dev-release/1.0.1`
 
 Add the service provider to config/app.php
 
