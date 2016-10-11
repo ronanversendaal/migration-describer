@@ -7,7 +7,7 @@ For Laravel 5.3, check the [1.0.1 release](https://github.com/ronanversendaal/mi
 
 Use composer to install the package
 
-`composer require ronanversendaal/migration-describer:dev-release/1.0.1`
+`composer require ronanversendaal/migration-describer:dev-release/1.0.0`
 
 Add the service provider to config/app.php
 
